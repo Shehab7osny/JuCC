@@ -16,6 +16,7 @@ class Rule {
   explicit Rule(std::vector<std::string> entities) : entities(std::move(entities)) {}
   [[nodiscard]] const std::vector<std::string> &getEntities() const { return entities; }
   void setEntities(const std::vector<std::string> &entities) { Rule::entities = entities; }
+  std::string toString();
 };
 
 class Production {
