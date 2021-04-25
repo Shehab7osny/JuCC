@@ -1,12 +1,13 @@
 #ifndef JUCC_GRAMMAR_H
 #define JUCC_GRAMMAR_H
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
 namespace jucc {
 namespace grammar {
 const char EPSILON[] = "epsilon";
+typedef std::vector<std::string> Entity;
 
 class Rule {
   std::vector<std::string> entities;
@@ -16,15 +17,18 @@ class Rule {
   explicit Rule(std::vector<std::string> entities) : entities(std::move(entities)) {}
   [[nodiscard]] const std::vector<std::string> &getEntities() const { return entities; }
   void setEntities(const std::vector<std::string> &entities) { Rule::entities = entities; }
-  std::string toString();
+  [[nodiscard]] std::string toString() const;
+  [[nodiscard]] bool HasPrefix(const Entity &) const;
 };
 
+typedef std::vector<grammar::Rule> Rules;
 class Production {
   std::string parent;
   std::vector<Rule> rules;
 
  public:
   Production() = default;
+  Production(std::string parent, std::vector<Rule> rules) : parent(std::move(parent)), rules(std::move(rules)) {}
   [[nodiscard]] const std::string &getParent() const { return parent; }
   [[nodiscard]] const std::vector<Rule> &getRules() const { return rules; }
   void setParent(const std::string &parent) { Production::parent = parent; }
