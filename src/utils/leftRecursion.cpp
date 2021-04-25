@@ -5,6 +5,7 @@ grammar::Productions jucc::utils::RemoveDirectLeftRecursion(const grammar::Produ
   if (!IsRecursive(prod)) {
     return grammar::Productions{prod};
   }
+
   std::string parent = prod.getParent();
   std::string parent_dash = prod.getParent() + std::string(DASH);
 
